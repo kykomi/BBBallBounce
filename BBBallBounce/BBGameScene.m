@@ -51,7 +51,6 @@
 }
 
 - (void)throwBall{
-//    SKSpriteNode *ball = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(10, 10)];
     SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:@"ball.png"];
     ball.name = @"ball";
     ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:5.0];
