@@ -138,7 +138,7 @@ static inline CGPoint toSpriteKitPointFromUIKitPoint(CGPoint point,SKView *baseV
 
 static inline CGSize wallSizeFromTouches(CGPoint start ,CGPoint end){
     return CGSizeMake(sqrt(pow(start.x - end.x,2) + pow(start.y - end.y,2)),
-                      2);
+                      6);
 }
 
 static inline CGPoint midPoint(CGPoint a, CGPoint b){
