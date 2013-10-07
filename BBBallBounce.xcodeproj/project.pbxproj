@@ -21,6 +21,10 @@
 		5DEC586A1800F88F006E7E18 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEC584C1800F88D006E7E18 /* UIKit.framework */; };
 		5DEC58721800F88F006E7E18 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5DEC58701800F88F006E7E18 /* InfoPlist.strings */; };
 		5DEC58741800F88F006E7E18 /* BBBallBounceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEC58731800F88F006E7E18 /* BBBallBounceTests.m */; };
+		5DEC587E1800F8B0006E7E18 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEC587D1800F8B0006E7E18 /* SpriteKit.framework */; };
+		5DEC58821800F950006E7E18 /* BBTopScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEC58811800F950006E7E18 /* BBTopScene.m */; };
+		5DEC5885180117E9006E7E18 /* BBGameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DEC5884180117E9006E7E18 /* BBGameScene.m */; };
+		5DEC588718019614006E7E18 /* ball@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DEC588618019614006E7E18 /* ball@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,12 @@
 		5DEC586F1800F88F006E7E18 /* BBBallBounceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BBBallBounceTests-Info.plist"; sourceTree = "<group>"; };
 		5DEC58711800F88F006E7E18 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5DEC58731800F88F006E7E18 /* BBBallBounceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBBallBounceTests.m; sourceTree = "<group>"; };
+		5DEC587D1800F8B0006E7E18 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		5DEC58801800F950006E7E18 /* BBTopScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTopScene.h; sourceTree = "<group>"; };
+		5DEC58811800F950006E7E18 /* BBTopScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTopScene.m; sourceTree = "<group>"; };
+		5DEC5883180117E9006E7E18 /* BBGameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBGameScene.h; sourceTree = "<group>"; };
+		5DEC5884180117E9006E7E18 /* BBGameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGameScene.m; sourceTree = "<group>"; };
+		5DEC588618019614006E7E18 /* ball@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ball@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DEC587E1800F8B0006E7E18 /* SpriteKit.framework in Frameworks */,
 				5DEC584B1800F88D006E7E18 /* CoreGraphics.framework in Frameworks */,
 				5DEC584D1800F88D006E7E18 /* UIKit.framework in Frameworks */,
 				5DEC58491800F88D006E7E18 /* Foundation.framework in Frameworks */,
@@ -101,6 +112,7 @@
 		5DEC58471800F88D006E7E18 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DEC587D1800F8B0006E7E18 /* SpriteKit.framework */,
 				5DEC58481800F88D006E7E18 /* Foundation.framework */,
 				5DEC584A1800F88D006E7E18 /* CoreGraphics.framework */,
 				5DEC584C1800F88D006E7E18 /* UIKit.framework */,
@@ -112,6 +124,7 @@
 		5DEC584E1800F88D006E7E18 /* BBBallBounce */ = {
 			isa = PBXGroup;
 			children = (
+				5DEC587F1800F93B006E7E18 /* Scene */,
 				5DEC58571800F88E006E7E18 /* BBAppDelegate.h */,
 				5DEC58581800F88F006E7E18 /* BBAppDelegate.m */,
 				5DEC585A1800F88F006E7E18 /* Main.storyboard */,
@@ -150,6 +163,18 @@
 				5DEC58701800F88F006E7E18 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5DEC587F1800F93B006E7E18 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				5DEC58801800F950006E7E18 /* BBTopScene.h */,
+				5DEC58811800F950006E7E18 /* BBTopScene.m */,
+				5DEC5883180117E9006E7E18 /* BBGameScene.h */,
+				5DEC5884180117E9006E7E18 /* BBGameScene.m */,
+				5DEC588618019614006E7E18 /* ball@2x.png */,
+			);
+			name = Scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +257,7 @@
 				5DEC58611800F88F006E7E18 /* Images.xcassets in Resources */,
 				5DEC58531800F88E006E7E18 /* InfoPlist.strings in Resources */,
 				5DEC585C1800F88F006E7E18 /* Main.storyboard in Resources */,
+				5DEC588718019614006E7E18 /* ball@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,9 +276,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DEC58821800F950006E7E18 /* BBTopScene.m in Sources */,
 				5DEC585F1800F88F006E7E18 /* BBViewController.m in Sources */,
 				5DEC58591800F88F006E7E18 /* BBAppDelegate.m in Sources */,
 				5DEC58551800F88E006E7E18 /* main.m in Sources */,
+				5DEC5885180117E9006E7E18 /* BBGameScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

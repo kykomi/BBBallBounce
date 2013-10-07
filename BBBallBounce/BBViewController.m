@@ -18,7 +18,19 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    SKView *view = (SKView *)self.view;
+    view.showsDrawCount = YES;
+    view.showsNodeCount = YES;
+    view.showsFPS = YES;
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    BBTopScene *title = [[BBTopScene alloc]initWithSize:self.view.frame.size];
+    SKView *view = (SKView *)self.view;
+    [view presentScene:title];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
