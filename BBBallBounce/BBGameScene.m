@@ -14,6 +14,10 @@
 
 @implementation BBGameScene
 
+static const uint32_t ballCategory     =  0x1 << 0;
+static const uint32_t wallCategory        =  0x1 << 1;
+static const uint32_t shapeCategory    =  0x1 << 2;
+
 - (void)didMoveToView:(SKView *)view{
     if (!self.contentCreated) {
         [self createContent];
@@ -26,6 +30,7 @@
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     [self addChild:[self ballPusher]];
     [self addChild:[self replayLabel]];
+    self.physicsWorld.contactDelegate = self;
 }
 
 - (SKLabelNode *)replayLabel{
@@ -46,7 +51,15 @@
     ballPusher.name = @"pusher";
     ballPusher.physicsBody.dynamic = NO;
     ballPusher.physicsBody.affectedByGravity = NO;
-    ballPusher.position = toSpriteKitPointFromUIKitPoint(CGPointMake(40,40), self.view);
+    ballPusher.position = toSpriteKitPointFromUIKitPoint(CGPointMake(ballPusher.frame.size.width/2,
+                                                                     60), self.view);
+    SKAction *moving = [SKAction sequence:@[
+                                            [SKAction moveByX:self.frame.size.width * 0.8 y:0 duration:3],
+                                            [SKAction moveByX:(-1) * self.frame.size.width * 0.8 y:0 duration:3]
+                                            ]];
+
+    [ballPusher runAction:[SKAction repeatActionForever:moving]];
+    
     return ballPusher;
 }
 
@@ -57,9 +70,32 @@
     ball.physicsBody.dynamic = YES;
     ball.physicsBody.restitution = 0.9;
     ball.physicsBody.velocity = CGVectorMake(200, 200);
-
     ball.position =  toSpriteKitPointFromUIKitPoint(CGPointMake(60, 40),self.view);
+    ball.physicsBody.categoryBitMask = ballCategory;
+    ball.physicsBody.collisionBitMask = wallCategory | shapeCategory | ballCategory;
+    ball.physicsBody.contactTestBitMask = wallCategory;
     [self addChild:ball];
+}
+
+- (void)throwShape{
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGFloat offsetY = 430;
+    CGPathMoveToPoint(path, NULL, 28 , 452 - offsetY);
+    CGPathAddLineToPoint(path, NULL, 38 , 434 - offsetY);
+    CGPathAddLineToPoint(path, NULL, 93 , 433 - offsetY);
+    CGPathAddLineToPoint(path, NULL, 93 , 468 - offsetY);
+    CGPathCloseSubpath(path);
+    SKShapeNode *s = [[SKShapeNode alloc]init];
+    s.path = path;
+    s.physicsBody = [SKPhysicsBody bodyWithPolygonFromPath:path];
+    s.physicsBody.dynamic = YES;
+    s.physicsBody.mass = 100;
+    s.physicsBody.affectedByGravity = YES;
+    s.physicsBody.restitution = 0.4;
+    s.physicsBody.categoryBitMask = shapeCategory;
+    s.physicsBody.collisionBitMask = ballCategory | shapeCategory | wallCategory;
+    s.position =  toSpriteKitPointFromUIKitPoint(CGPointMake(100, 40),self.view);
+    [self addChild:s];
 }
 
 - (void)addWall{
@@ -71,6 +107,8 @@
     wall.name = @"wall";
     wall.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:wall.frame];
     wall.physicsBody.affectedByGravity = NO;
+    wall.physicsBody.categoryBitMask = wallCategory;
+    wall.physicsBody.collisionBitMask = ballCategory | shapeCategory;
     wall.position = midPoint(fromPoint, toPoint);
     [self addChild:wall];
     
@@ -108,8 +146,8 @@
             if ([[self nodeAtPoint:_touchStartPoint].name isEqualToString:@"wall"]) {
                 [[self nodeAtPoint:_touchStartPoint] removeFromParent];
             }
-            
             [self throwBall];
+            [self throwShape];
             break;
         case BBSwipe:
             [self addWall];
@@ -128,6 +166,11 @@
         }
         return BBSwipe;
     }
+}
+
+#pragma mark - collision delegate
+- (void)didBeginContact:(SKPhysicsContact *)contact{
+    NSLog(@"col");
 }
 
 

@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface BBGameScene : SKScene
+@interface BBGameScene : SKScene<SKPhysicsContactDelegate>
 {
     CGPoint _touchStartPoint,_touchEndPoint;
 }
