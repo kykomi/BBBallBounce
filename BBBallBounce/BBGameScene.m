@@ -149,7 +149,6 @@ static const uint32_t shapeCategory    =  0x1 << 2;
             [self throwBall];
             break;
         case BBSwipe:
-            [self addWall];
             break;
         default:
             break;
