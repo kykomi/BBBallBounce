@@ -489,6 +489,7 @@
 				5DEC58791800F88F006E7E18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5DEC587A1800F88F006E7E18 /* Build configuration list for PBXNativeTarget "BBBallBounceTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +498,7 @@
 				5DEC587C1800F88F006E7E18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

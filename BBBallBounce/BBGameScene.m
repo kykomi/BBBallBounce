@@ -26,8 +26,9 @@ static const uint32_t shapeCategory    =  0x1 << 2;
 }
 
 - (void)createContent{
-    self.backgroundColor = [SKColor blackColor];
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    self.backgroundColor = [SKColor grayColor];
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect: self.frame];
+    self.scaleMode = SKSceneScaleModeAspectFit;
     [self addChild:[self ballPusher]];
     [self addChild:[self replayLabel]];
     self.physicsWorld.contactDelegate = self;
@@ -37,9 +38,8 @@ static const uint32_t shapeCategory    =  0x1 << 2;
     SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     label.text = @"replay";
     label.name = @"replay";
-    label.position =  toSpriteKitPointFromUIKitPoint(CGPointMake(self.frame.size.width - label.frame.size.width/2,
-                                                                40),
-                                                     self.view);
+    label.position = CGPointMake(self.view.bounds.size.width - label.frame.size.width/2,
+                                 self.view.bounds.size.height - label.frame.size.height/2);
     label.color = [SKColor whiteColor];
     label.fontSize = 18;
     label.zPosition = 1.0;
@@ -147,7 +147,6 @@ static const uint32_t shapeCategory    =  0x1 << 2;
                 [[self nodeAtPoint:_touchStartPoint] removeFromParent];
             }
             [self throwBall];
-            [self throwShape];
             break;
         case BBSwipe:
             [self addWall];
@@ -176,7 +175,7 @@ static const uint32_t shapeCategory    =  0x1 << 2;
 
 #pragma mark - util
 static inline CGPoint toSpriteKitPointFromUIKitPoint(CGPoint point,SKView *baseView){
-    return CGPointMake(point.x, baseView.frame.size.height - point.y);
+    return CGPointMake(point.x, baseView.bounds.size.height - point.y);
 }
 
 static inline CGSize wallSizeFromTouches(CGPoint start ,CGPoint end){

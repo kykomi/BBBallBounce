@@ -17,18 +17,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    SKView *view = (SKView *)self.view;
-    view.showsDrawCount = YES;
-    view.showsNodeCount = YES;
-    view.showsFPS = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    BBTopScene *title = [[BBTopScene alloc]initWithSize:self.view.frame.size];
+
+}
+
+- (void)viewWillLayoutSubviews
+{
+    
+    [super viewWillLayoutSubviews];
     SKView *view = (SKView *)self.view;
+    view.showsDrawCount = YES;
+    view.showsNodeCount = YES;
+    view.showsFPS = YES;
+    BBTopScene *title = [[BBTopScene alloc]initWithSize:self.view.bounds.size];
     [view presentScene:title];
+    NSLog(@"%@",NSStringFromCGSize(self.view.bounds.size));
+
 }
 
 
