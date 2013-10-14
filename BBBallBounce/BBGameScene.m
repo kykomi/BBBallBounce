@@ -26,10 +26,17 @@ static const uint32_t shapeCategory    =  0x1 << 2;
 }
 
 - (void)createContent{
-    self.backgroundColor = [SKColor grayColor];
+    self.backgroundColor = [SKColor blackColor];
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect: self.frame];
     self.scaleMode = SKSceneScaleModeAspectFit;
-    [self addChild:[self ballPusher]];
+    //TODO: Node#addChildがうまくいかない・・・
+    //TODO: 回転は
+    BBBallPusherZone *ballPusherZone = [self ballPusherZone];
+    SKNode *ballPusher = [self ballPusher];
+    [ballPusherZone setPusher:ballPusher];
+    ballPusherZone.delegate = self;
+    [self addChild:ballPusherZone];
+    [self addChild:ballPusher];
     [self addChild:[self replayLabel]];
     self.physicsWorld.contactDelegate = self;
 }
@@ -46,35 +53,45 @@ static const uint32_t shapeCategory    =  0x1 << 2;
     return label;
 }
 
+- (BBBallPusherZone *)ballPusherZone{
+    BBBallPusherZone *zone = [[BBBallPusherZone alloc]initWithColor:[SKColor blueColor] size:CGSizeMake(44, self.view.bounds.size.height)];
+    zone.position  = CGPointMake(zone.size.width / 2, self.view.bounds.size.height / 2);
+    zone.userInteractionEnabled = YES;
+    return zone;
+}
+
 - (SKSpriteNode *)ballPusher{
     SKSpriteNode *ballPusher = [SKSpriteNode spriteNodeWithColor:[SKColor grayColor] size:CGSizeMake(40, 20)];
     ballPusher.name = @"pusher";
     ballPusher.physicsBody.dynamic = NO;
     ballPusher.physicsBody.affectedByGravity = NO;
-    ballPusher.position = toSpriteKitPointFromUIKitPoint(CGPointMake(ballPusher.frame.size.width/2,
-                                                                     60), self.view);
-    SKAction *moving = [SKAction sequence:@[
-                                            [SKAction moveByX:self.frame.size.width * 0.8 y:0 duration:3],
-                                            [SKAction moveByX:(-1) * self.frame.size.width * 0.8 y:0 duration:3]
-                                            ]];
-
-    [ballPusher runAction:[SKAction repeatActionForever:moving]];
-    
+    ballPusher.position = CGPointMake(ballPusher.frame.size.width/2, 160);
+    ballPusher.anchorPoint = CGPointMake(0, 0.5);
     return ballPusher;
 }
 
-- (void)throwBall{
+- (void)throwBallAtAngle:(CGFloat)angle{
     SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:@"ball.png"];
     ball.name = @"ball";
     ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:5.0];
     ball.physicsBody.dynamic = YES;
     ball.physicsBody.restitution = 0.9;
-    ball.physicsBody.velocity = CGVectorMake(200, 200);
-    ball.position =  toSpriteKitPointFromUIKitPoint(CGPointMake(60, 40),self.view);
-    ball.physicsBody.categoryBitMask = ballCategory;
-    ball.physicsBody.collisionBitMask = wallCategory | shapeCategory | ballCategory;
-    ball.physicsBody.contactTestBitMask = wallCategory;
-    [self addChild:ball];
+    CGFloat tanOfAngle = tan(angle);
+    CGFloat baseVerocity = 200;
+    ball.physicsBody.velocity = CGVectorMake(1 * baseVerocity,tanOfAngle * baseVerocity);
+    [self enumerateChildNodesWithName:@"pusher" usingBlock:^(SKNode *node,BOOL *stop){
+        ball.position =  node.position;
+        CGAffineTransform transform = CGAffineTransformMakeRotation(angle);
+        CGPoint rotatedPointAtOrigin = CGPointApplyAffineTransform(CGPointMake(node.frame.size.width,0), transform);
+        CGAffineTransform transformToPusher = CGAffineTransformMakeTranslation(node.position.x, node.position.y);
+        CGPoint rotated = CGPointApplyAffineTransform(rotatedPointAtOrigin, transformToPusher);
+        ball.position = rotated;
+        ball.physicsBody.categoryBitMask = ballCategory;
+        ball.physicsBody.collisionBitMask = wallCategory | shapeCategory | ballCategory;
+        ball.physicsBody.contactTestBitMask = wallCategory;
+        [self addChild:ball];
+    }];
+
 }
 
 - (void)throwShape{
@@ -146,7 +163,6 @@ static const uint32_t shapeCategory    =  0x1 << 2;
             if ([[self nodeAtPoint:_touchStartPoint].name isEqualToString:@"wall"]) {
                 [[self nodeAtPoint:_touchStartPoint] removeFromParent];
             }
-            [self throwBall];
             break;
         case BBSwipe:
             break;
@@ -168,7 +184,12 @@ static const uint32_t shapeCategory    =  0x1 << 2;
 
 #pragma mark - collision delegate
 - (void)didBeginContact:(SKPhysicsContact *)contact{
-    NSLog(@"col");
+//    NSLog(@"col");
+}
+
+#pragma mark - BBBallPusherZoneDelegate
+- (void)pusherZoneTapEnded:(CGFloat)pusherAngle{
+    [self throwBallAtAngle:pusherAngle];
 }
 
 

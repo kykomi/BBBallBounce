@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D29B6C21806DAE600808521 /* BBBallPusherZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D29B6C11806DAE600808521 /* BBBallPusherZone.m */; };
 		5DEC58491800F88D006E7E18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEC58481800F88D006E7E18 /* Foundation.framework */; };
 		5DEC584B1800F88D006E7E18 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEC584A1800F88D006E7E18 /* CoreGraphics.framework */; };
 		5DEC584D1800F88D006E7E18 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DEC584C1800F88D006E7E18 /* UIKit.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5D29B6C01806DAE600808521 /* BBBallPusherZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBallPusherZone.h; sourceTree = "<group>"; };
+		5D29B6C11806DAE600808521 /* BBBallPusherZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBallPusherZone.m; sourceTree = "<group>"; };
 		5DEC58451800F88D006E7E18 /* BBBallBounce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBBallBounce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DEC58481800F88D006E7E18 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5DEC584A1800F88D006E7E18 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -90,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D29B6BF1806DACC00808521 /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				5D29B6C01806DAE600808521 /* BBBallPusherZone.h */,
+				5D29B6C11806DAE600808521 /* BBBallPusherZone.m */,
+			);
+			name = Sprite;
+			sourceTree = "<group>";
+		};
 		5DEC583C1800F88D006E7E18 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +136,7 @@
 		5DEC584E1800F88D006E7E18 /* BBBallBounce */ = {
 			isa = PBXGroup;
 			children = (
+				5D29B6BF1806DACC00808521 /* Sprite */,
 				5DEC587F1800F93B006E7E18 /* Scene */,
 				5DEC58571800F88E006E7E18 /* BBAppDelegate.h */,
 				5DEC58581800F88F006E7E18 /* BBAppDelegate.m */,
@@ -277,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DEC58821800F950006E7E18 /* BBTopScene.m in Sources */,
+				5D29B6C21806DAE600808521 /* BBBallPusherZone.m in Sources */,
 				5DEC585F1800F88F006E7E18 /* BBViewController.m in Sources */,
 				5DEC58591800F88F006E7E18 /* BBAppDelegate.m in Sources */,
 				5DEC58551800F88E006E7E18 /* main.m in Sources */,

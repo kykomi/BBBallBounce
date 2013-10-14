@@ -7,8 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "BBBallPusherZone.h"
 
-@interface BBGameScene : SKScene<SKPhysicsContactDelegate>
+@interface BBGameScene : SKScene<SKPhysicsContactDelegate,BBBallPusherDelegate>
 {
     CGPoint _touchStartPoint,_touchEndPoint;
 }
