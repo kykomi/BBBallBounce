@@ -14,6 +14,7 @@ CGPoint _touchStartPoint;
 CGPoint _touchEndPoint;
 SKNode *_ballPusher;
 CGFloat currentZRotationDegree = 0.0f;
+BOOL isTouchMoving;
 
 - (void)setPusher:(SKNode *)pusher{
     _ballPusher = pusher;
@@ -26,6 +27,7 @@ CGFloat currentZRotationDegree = 0.0f;
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    isTouchMoving = YES;
     CGFloat deltaY = [[touches anyObject]locationInNode:self].y - _touchStartPoint.y;
     CGFloat deltaDegree = ((deltaY / self.size.height) * 180);
     CGFloat rotateDegree =  (currentZRotationDegree + deltaDegree);
@@ -44,9 +46,12 @@ CGFloat currentZRotationDegree = 0.0f;
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     _touchEndPoint = [[touches anyObject]locationInNode:self];
-    if (self.delegate) {
-        [self.delegate pusherZoneTapEnded:_ballPusher.zRotation];
+    if (isTouchMoving == NO) {
+        if (self.delegate) {
+            [self.delegate pusherZoneTapEnded:_ballPusher.zRotation];
+        }        
     }
+    isTouchMoving = NO;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{

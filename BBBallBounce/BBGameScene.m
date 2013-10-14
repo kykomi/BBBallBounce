@@ -146,6 +146,10 @@ static const uint32_t shapeCategory    =  0x1 << 2;
     _touchStartPoint = [[touches anyObject]locationInNode:self];
 }
 
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     _touchEndPoint = [[touches anyObject]locationInNode:self];
     switch ([self gestureType:_touchStartPoint andEnd:_touchEndPoint]) {
